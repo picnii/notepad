@@ -10,8 +10,8 @@
 	}
 </style>
 <section>
-	<input id="input" type="text"><br/>
-	<textarea id="content" ></textarea><br/>
-	<button class="btn btn-danger">Save</button>
-
+	<a href="#/" class="btn">Back</a>
+	<input id="input" ng-model="subject" type="text"><br/>
+	<textarea id="content" ng-model="content" ></textarea><br/>
+	<button class="btn btn-danger" ng-click="save()" >Save</button>
 </section>
