@@ -19,7 +19,7 @@ function MainCtrl ($scope, $rootScope) {
 	console.log($scope.notes);
 }
 
-function EditorCtrl ($scope, $rootScope, $routeParams) {
+function EditorCtrl ($scope, $rootScope, $routeParams, $location) {
 	// body...
 
 	$scope.notes = $rootScope.loadNotes();
@@ -34,10 +34,15 @@ function EditorCtrl ($scope, $rootScope, $routeParams) {
 	{
 		//edit page
 		$scope.isNewNote = false;
+
 		//find editNoteIndex
 		for(var i = 0 ; i < $scope.notes.length; i++)
 			if($scope.notes[i].id == $routeParams.id)
 				$scope.editNoteIndex = i;
+
+		//load subject
+		$scope.subject = $scope.notes[$scope.editNoteIndex].name;
+		$scope.content  = $scope.notes[$scope.editNoteIndex].content;
 	}
 
 
@@ -71,8 +76,8 @@ function EditorCtrl ($scope, $rootScope, $routeParams) {
 			//case save(edit) old note
 			var save_object = {id:$routeParams.id, name:$scope.subject, content:$scope.content};
 			$scope.notes[$scope.editNoteIndex] = save_object;
-			localStorage['notes'] = JSON.stringify(save_array);
+			localStorage['notes'] = JSON.stringify($scope.notes);
 		}
-		
+		$location.path('/')
 	}	
 }
