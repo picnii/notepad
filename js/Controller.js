@@ -23,6 +23,7 @@ function EditorCtrl ($scope, $rootScope, $routeParams, $location) {
 	// body...
 
 	$scope.notes = $rootScope.loadNotes();
+	//
 	$scope.isNewNote = false;
 	$scope.editNoteIndex = -1;
 
@@ -32,7 +33,7 @@ function EditorCtrl ($scope, $rootScope, $routeParams, $location) {
 		$scope.isNewNote = true;
 	}else
 	{
-		//edit page
+		//Edit page
 		$scope.isNewNote = false;
 
 		//find editNoteIndex
