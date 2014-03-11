@@ -23,37 +23,56 @@ function EditorCtrl ($scope, $rootScope, $routeParams) {
 	// body...
 
 	$scope.notes = $rootScope.loadNotes();
-	//console.log($routeParams.id);
+	$scope.isNewNote = false;
+	$scope.editNoteIndex = -1;
 
 	if(typeof($routeParams.id) == 'undefined')
 	{
 		//Create New Page
+		$scope.isNewNote = true;
 	}else
 	{
 		//edit page
+		$scope.isNewNote = false;
+		//find editNoteIndex
+		for(var i = 0 ; i < $scope.notes.length; i++)
+			if($scope.notes[i].id == $routeParams.id)
+				$scope.editNoteIndex = i;
 	}
+
+
 
 
 	$scope.save = function()
 	{
-		//create new
-		var id = $scope.notes.length;
-		var save_object = {id:id, name:$scope.subject, content:$scope.content};
-		console.log(save_object);
-
-		//check if there are localstorage
-		if(typeof(localStorage['notes']) == 'undefined' || localStorage['notes'] == '')
+		if($scope.isNewNote)
 		{
-			var save_array = [];
-			save_array.push(save_object);
+			//create new
+			var id = $scope.notes.length;
+			var save_object = {id:id, name:$scope.subject, content:$scope.content};
+			console.log(save_object);
 
-			localStorage['notes'] = JSON.stringify(save_array);
+			//check if there are localstorage
+			if(typeof(localStorage['notes']) == 'undefined' || localStorage['notes'] == '')
+			{
+				var save_array = [];
+				save_array.push(save_object);
+
+				localStorage['notes'] = JSON.stringify(save_array);
+			}else
+			{
+
+				save_array = JSON.parse(localStorage['notes']);
+				save_array.push(save_object);
+				localStorage['notes'] = JSON.stringify(save_array);
+			}
 		}else
 		{
-
-			save_array = JSON.parse(localStorage['notes']);
-			save_array.push(save_object);
+			//case save(edit) old note
+			var save_object = {id:$routeParams.id, name:$scope.subject, content:$scope.content};
+			$scope.notes[$scope.editNoteIndex] = save_object;
 			localStorage['notes'] = JSON.stringify(save_array);
 		}
+		
 	}	
 }
