@@ -19,11 +19,26 @@ function MainCtrl ($scope, $rootScope) {
 	console.log($scope.notes);
 }
 
-function EditorCtrl ($scope) {
+function EditorCtrl ($scope, $rootScope, $routeParams) {
 	// body...
+
+	$scope.notes = $rootScope.loadNotes();
+	//console.log($routeParams.id);
+
+	if(typeof($routeParams.id) == 'undefined')
+	{
+		//Create New Page
+	}else
+	{
+		//edit page
+	}
+
+
 	$scope.save = function()
 	{
-		var save_object = {name:$scope.subject, content:$scope.content};
+		//create new
+		var id = $scope.notes.length;
+		var save_object = {id:id, name:$scope.subject, content:$scope.content};
 		console.log(save_object);
 
 		//check if there are localstorage

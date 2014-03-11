@@ -12,6 +12,10 @@ app.config(['$routeProvider', function($routeProvider) {
         templateUrl: 'pages/editor.html',
         controller: 'EditorCtrl'
       }).
+      when('/editor/:id', {
+        templateUrl: 'pages/editor.html',
+        controller: 'EditorCtrl'
+      }).
       otherwise({
         redirectTo: '/'
       });

@@ -1,6 +1,6 @@
 <section>
 	<ul>
-		<li ng-repeat="item in notes"><a href="">{{item.name}}</a></li>
+		<li ng-repeat="item in notes"><a ng-href="#/editor/{{item.id}}">{{item.name}}</a></li>
 	</ul>
 	<a href="#/editor" class="btn btn-primary">สร้างหน้าใหม่</a>
 </section>
